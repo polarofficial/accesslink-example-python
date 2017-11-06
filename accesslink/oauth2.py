@@ -29,8 +29,15 @@ class OAuth2Client(object):
     def get_authorization_url(self, response_type="code"):
         """Build authorization url for the client"""
 
-        return "{}?client_id={}&response_type={}&redirect_uri={}".format(
-            self.authorization_url, self.client_id, response_type, self.redirect_url)
+        url = "{url}?client_id={client_id}&response_type={response_type}".format(
+            url=self.authorization_url,
+            client_id=self.client_id,
+            response_type=response_type)
+
+        if self.redirect_url:
+            url += "&redirect_uri={}".format(self.redirect_url)
+
+        return url
 
     def get_access_token(self, authorization_code):
         """Exchange authorization code for an access token"""
