@@ -13,11 +13,13 @@ CALLBACK_ENDPOINT = "/oauth2_callback"
 
 CONFIG_FILENAME = "config.yml"
 
+REDIRECT_URL = "http://localhost:{}{}".format(CALLBACK_PORT, CALLBACK_ENDPOINT)
 
 config = load_config(CONFIG_FILENAME)
 
 accesslink = AccessLink(client_id=config['client_id'],
-                        client_secret=config['client_secret'])
+                        client_secret=config['client_secret'],
+                        redirect_url=REDIRECT_URL)
 
 
 app = Flask(__name__)

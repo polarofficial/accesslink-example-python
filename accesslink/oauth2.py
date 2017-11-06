@@ -8,11 +8,12 @@ from requests.exceptions import HTTPError
 class OAuth2Client(object):
     """Wrapper class for OAuth2 requests"""
 
-    def __init__(self, url, authorization_url, access_token_url,
+    def __init__(self, url, authorization_url, access_token_url, redirect_url,
                  client_id, client_secret):
         self.url = url
         self.authorization_url = authorization_url
         self.access_token_url = access_token_url
+        self.redirect_url = redirect_url
         self.client_id = client_id
         self.client_secret = client_secret
 
@@ -28,8 +29,8 @@ class OAuth2Client(object):
     def get_authorization_url(self, response_type="code"):
         """Build authorization url for the client"""
 
-        return "{}?client_id={}&response_type={}".format(
-            self.authorization_url, self.client_id, response_type)
+        return "{}?client_id={}&response_type={}&redirect_uri={}".format(
+            self.authorization_url, self.client_id, response_type, self.redirect_url)
 
     def get_access_token(self, authorization_code):
         """Exchange authorization code for an access token"""
