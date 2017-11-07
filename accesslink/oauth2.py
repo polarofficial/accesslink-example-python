@@ -4,6 +4,10 @@ import requests
 from requests.auth import HTTPBasicAuth
 from requests.exceptions import HTTPError
 
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 
 class OAuth2Client(object):
     """Wrapper class for OAuth2 requests"""
@@ -29,15 +33,16 @@ class OAuth2Client(object):
     def get_authorization_url(self, response_type="code"):
         """Build authorization url for the client"""
 
-        url = "{url}?client_id={client_id}&response_type={response_type}".format(
-            url=self.authorization_url,
-            client_id=self.client_id,
-            response_type=response_type)
+        params = {
+            "client_id": self.client_id,
+            "response_type": response_type,
+        }
 
         if self.redirect_url:
-            url += "&redirect_uri={}".format(self.redirect_url)
+            params["redirect_uri"] = self.redirect_url
 
-        return url
+        return "{url}?{params}".format(url=self.authorization_url,
+                                       params=urlencode(params))
 
     def get_access_token(self, authorization_code):
         """Exchange authorization code for an access token"""
