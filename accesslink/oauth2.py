@@ -101,7 +101,7 @@ class OAuth2Client(object):
         try:
             return response.json()
         except ValueError:
-            return {}
+            return response.text
 
     def __request(self, method, **kwargs):
         kwargs = self.__build_request_kwargs(**kwargs)
