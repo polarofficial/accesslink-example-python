@@ -4,15 +4,20 @@ import requests
 from requests.auth import HTTPBasicAuth
 from requests.exceptions import HTTPError
 
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 
 class OAuth2Client(object):
     """Wrapper class for OAuth2 requests"""
 
-    def __init__(self, url, authorization_url, access_token_url,
+    def __init__(self, url, authorization_url, access_token_url, redirect_url,
                  client_id, client_secret):
         self.url = url
         self.authorization_url = authorization_url
         self.access_token_url = access_token_url
+        self.redirect_url = redirect_url
         self.client_id = client_id
         self.client_secret = client_secret
 
@@ -28,8 +33,16 @@ class OAuth2Client(object):
     def get_authorization_url(self, response_type="code"):
         """Build authorization url for the client"""
 
-        return "{}?client_id={}&response_type={}".format(
-            self.authorization_url, self.client_id, response_type)
+        params = {
+            "client_id": self.client_id,
+            "response_type": response_type,
+        }
+
+        if self.redirect_url:
+            params["redirect_uri"] = self.redirect_url
+
+        return "{url}?{params}".format(url=self.authorization_url,
+                                       params=urlencode(params))
 
     def get_access_token(self, authorization_code):
         """Exchange authorization code for an access token"""
@@ -41,6 +54,7 @@ class OAuth2Client(object):
 
         data = {
             "grant_type" : "authorization_code",
+            "redirect_uri" : self.redirect_url,
             "code" : authorization_code
         }
 
