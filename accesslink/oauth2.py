@@ -54,7 +54,6 @@ class OAuth2Client(object):
 
         data = {
             "grant_type" : "authorization_code",
-            "redirect_uri" : self.redirect_url,
             "code" : authorization_code
         }
 
