@@ -39,7 +39,8 @@ class PolarAccessLinkExample(object):
                   "2) Check available data\n" +
                   "3) Revoke access token\n" +
                   "4) Today nightly recharge\n" +
-                  "5) Exit\n" +
+                  "5) Sleep\n" +
+                  "6) Exit\n" +
                   "-----------------------")
             self.get_menu_choice()
 
@@ -50,7 +51,8 @@ class PolarAccessLinkExample(object):
             "2": self.check_available_data,
             "3": self.revoke_access_token,
             "4": self.today_nightly_recharge,
-            "5": self.exit,
+            "5": self.today_sleep,
+            "6": self.exit,
         }.get(choice, self.get_menu_choice)()
 
     def get_user_information(self):
@@ -151,6 +153,16 @@ class PolarAccessLinkExample(object):
 
         print("Today nightly recharge:")
         pretty_print_json(nightly_recharge)
+
+    def today_sleep(self):
+        sleep = self.accesslink.sleep.get_sleep_by_date(access_token=self.config["access_token"])
+
+        if not sleep:
+            print("Today has no sleep")
+            return
+
+        print("Today sleep:")
+        pretty_print_json(sleep)
 
 
 if __name__ == "__main__":
