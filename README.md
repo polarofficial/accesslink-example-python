@@ -6,7 +6,7 @@ With the Polar Open AccessLink you can access the training and daily activity da
 ## Prerequisites
 
 * [Polar Flow](https://flow.polar.com) account
-* Python and pip
+* Python 2 and pip related to Python 2
 
 ## Getting Started
 
