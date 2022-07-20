@@ -36,9 +36,10 @@ class PolarAccessLinkExample(object):
             print("\nChoose an option:\n" +
                   "-----------------------\n" +
                   "1) Get user information\n" +
-                  "2) Check available data\n" +
+                  "2) print and discard new data\n" +
                   "3) Revoke access token\n" +
-                  "4) Exit\n" +
+                  "4) Print all data without discarding\n" +
+                  "5) Exit\n" +
                   "-----------------------")
             self.get_menu_choice()
 
@@ -48,8 +49,19 @@ class PolarAccessLinkExample(object):
             "1": self.get_user_information,
             "2": self.check_available_data,
             "3": self.revoke_access_token,
-            "4": self.exit
+            "4": self.print_data ,
+            "5": self.exit
         }.get(choice, self.get_menu_choice)()
+
+    def print_data(self):
+        exercise = self.accesslink.get_exercises(access_token=self.config["access_token"])
+        sleep =  self.accesslink.get_sleep(access_token=self.config["access_token"])
+        recharge = self.accesslink.get_recharge(access_token=self.config["access_token"])
+
+        print("exercises: ", end = '')
+        pretty_print_json(exercise)
+        pretty_print_json(sleep)
+        pretty_print_json(recharge)
 
     def get_user_information(self):
         user_info = self.accesslink.users.get_information(user_id=self.config["user_id"],
@@ -65,7 +77,7 @@ class PolarAccessLinkExample(object):
 
         print("Available data:")
         pretty_print_json(available_data)
-
+        self.get_data()
         for item in available_data["available-user-data"]:
             if item["data-type"] == "EXERCISE":
                 self.get_exercises()
