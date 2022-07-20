@@ -24,7 +24,6 @@ accesslink = AccessLink(client_id=config['client_id'],
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def authorize():
     return redirect(accesslink.authorization_url)
