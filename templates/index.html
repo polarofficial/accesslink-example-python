@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>
+        AccessLink
+    </title>
+    <style>
+        a {
+            text-align: center;
+            font: 500;
+            margin: auto;
+            align-content: center;
+        }
+        div.ex {
+            border: 5px solid gray;
+            margin: auto;
+            padding: 50px;
+            width: 200px;
+        }
+        form {
+            text-align: center;
+
+        }
+        h1 {
+            text-align: center;
+            color: green;
+
+        }
+    </style>
+</head>
+<body>
+    {%if status == "ok"%}
+    <div class="ex">
+        <h1>
+            Account Linked
+        </h1>
+    </div>
+    {% endif %}
+    <div class="ex">
+        <a href="https://flow.polar.com/oauth2/authorization?response_type=code&client_id={{userid}}">Link to authorize</a>
+        <br />
+        <br />
+        <a href="/data">
+            <input type="button" value="Read data" />
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>
+        AccessLinkData
+    </title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        b {
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+        }
+        div.ex1 {
+            width: 400px;
+            border: 3px solid gray;
+            padding: 50px;
+            margin: auto;
+        }
+        div.ex2 {
+            width: 500px;
+            border: 5px solid gray;
+            padding: 50px;
+            margin: auto;
+        }
+    </style>
+</head> 
+<body>
+    {% for item in alldata %}
+    <div class ="ex2">
+        <h2>
+            User:  
+            {{item["userdata"]["first-name"]}} {{item["userdata"]["last-name"]}}
+        </h2>
+        <div class="ex1">
+            <h4>
+                Exercise information:
+            </h4>
+            <p>{{item["exercises"]}}</p>
+        </div>
+        <div class="ex1">
+            <h4>
+                User information:
+            </h4>
+            <p>{{item["userdata"]}}</p>
+        </div>
+        <div class="ex1">
+            <h4>
+                Sleep information:
+            </h4>
+            <p>{{item["sleepdata"]}}</p>
+        </div>
+        <div class="ex1">
+            <h4>
+                Recharge information:
+            </h4>
+            <p>{{item["recharge"]}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
