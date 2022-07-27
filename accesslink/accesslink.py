@@ -27,6 +27,8 @@ class AccessLink(object):
         self.training_data = endpoints.TrainingData(oauth=self.oauth)
         self.physical_info = endpoints.PhysicalInfo(oauth=self.oauth)
         self.daily_activity = endpoints.DailyActivity(oauth=self.oauth)
+        self.nightly_recharge = endpoints.NightlyRecharge(oauth=self.oauth)
+        self.sleep = endpoints.Sleep(oauth=self.oauth)
 
     @property
     def authorization_url(self):
