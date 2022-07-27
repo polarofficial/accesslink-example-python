@@ -7,7 +7,7 @@ import yaml
 def load_config(filename):
     """Load configuration from a yaml file"""
     with open(filename) as f:
-        return yaml.load(f)
+        return yaml.full_load(f)
 
 
 def save_config(config, filename):
