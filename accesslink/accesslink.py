@@ -49,3 +49,6 @@ class AccessLink(object):
     def get_recharge(self, access_token):
         return self.oauth.get(endpoint="/users/nightly-recharge/", access_token=access_token)
 
+    def get_userdata(self, user_id,access_token):
+        return self.oauth.get(endpoint="/users/"+ str(user_id), access_token= access_token)
+
