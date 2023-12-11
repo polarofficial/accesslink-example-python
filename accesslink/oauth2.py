@@ -105,7 +105,7 @@ class OAuth2Client(object):
         if response.status_code >= 400:
             message = "{code} {reason}: {body}".format(code=response.status_code,
                                                        reason=response.reason,
-                                                       body=response.text)
+                                                       body=response.text.encode('utf-8'))
             raise HTTPError(message, response=response)
 
         if response.status_code is 204:

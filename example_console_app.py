@@ -22,7 +22,7 @@ class PolarAccessLinkExample(object):
         self.config = load_config(CONFIG_FILENAME)
 
         if "access_token" not in self.config:
-            print("Authorization is required. Run authorization.py first.")
+            print("Authorization is required. Run authorization.py first and complete the authentication process.")
             return
 
         self.accesslink = AccessLink(client_id=self.config["client_id"],
@@ -36,9 +36,9 @@ class PolarAccessLinkExample(object):
             print("\nChoose an option:\n" +
                   "-----------------------\n" +
                   "1) Get user information\n" +
-                  "2) print and discard new data\n" +
-                  "3) Revoke access token\n" +
-                  "4) Print all data without discarding\n" +
+                  "2) Get available transactional data\n" +                  
+                  "3) Get available non-transactional data\n" +
+                  "4) Revoke access token\n" +
                   "5) Exit\n" +
                   "-----------------------")
             self.get_menu_choice()
@@ -48,8 +48,8 @@ class PolarAccessLinkExample(object):
         {
             "1": self.get_user_information,
             "2": self.check_available_data,
-            "3": self.revoke_access_token,
-            "4": self.print_data ,
+            "3": self.print_data ,
+            "4": self.revoke_access_token,            
             "5": self.exit
         }.get(choice, self.get_menu_choice)()
 
@@ -77,7 +77,6 @@ class PolarAccessLinkExample(object):
 
         print("Available data:")
         pretty_print_json(available_data)
-        self.get_data()
         for item in available_data["available-user-data"]:
             if item["data-type"] == "EXERCISE":
                 self.get_exercises()
