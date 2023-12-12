@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from asyncio.windows_events import NULL
+import platform
+if platform.system() == 'Windows':
+    from asyncio.windows_events import NULL
 from genericpath import exists
 from pickle import NONE
 
 import requests
 from flask import Flask, request, redirect, render_template
 
-from utils import load_config, save_config, pretty_print_json
+from utils import load_config, save_config
 from accesslink import AccessLink
 
 
