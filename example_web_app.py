@@ -31,7 +31,7 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     status=request.args.get("status")
-    return render_template("index.html", userid = config["client_id"], status=status)
+    return render_template("index.html", userid = config["client_id"], redirect_url=REDIRECT_URL, status=status)
 
 @app.route("/data")
 def data():

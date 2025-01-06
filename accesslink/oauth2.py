@@ -57,6 +57,9 @@ class OAuth2Client(object):
             "code" : authorization_code
         }
 
+        if self.redirect_url:
+            data["redirect_uri"] = self.redirect_url
+
         return self.post(endpoint=None,
                          url=self.access_token_url,
                          data=data,
